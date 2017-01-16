@@ -1,0 +1,82 @@
+PROGRAMME Algo_CarreMagique
+ // G : Faire un carré magique
+ // I : une taille de la matrice, des procedures, placement et affichage
+ // O : L'affichage d'un carré magique
+
+ CONST
+	Tmatrice <- 5
+
+TYPE 
+	Matrice <- Tableau[1..MAX, 1..MAX] de ENTIER
+
+
+PROCEDURE Init(VAR Tableau : Matrice)
+VAR
+	i, j : ENTIER
+DEBUT
+	POUR i de 1 A Tmatrice FAIRE
+		POUR j de 1 A Tmatrice FAIRE
+			Tableau[i, j] <- 0
+		FINPOUR
+	FINPOUR
+FIN
+
+PROCEDURE tier(VAR Tableau : Matrice)
+VAR 
+	i, j : ENTIER
+DEBUT
+	i <- Tmatrice DIV 2
+	j <- (Tmatrice DIV 2) + 1
+	Tableau[i, j] <- 1
+FIN
+
+PROCEDURE Placement(VAR Tableau : Matrice)
+VAR
+	i, j, compteur : ENTIER
+DEBUT
+	i <- Tmatrice DIV 2
+	j <- (Tmatrice DIV 2) + 1
+	POUR compteur de 2 A (Tmatrice * Tmatrice) FAIRE
+		SI (j + 1 = 0) ALORS
+			j <- 0
+		FINSI
+		SI (i - 1 = 0) ALORS
+			i - Tmatrice + 1
+		FINSI
+		i <- i - 1
+		j <- j + 1
+		SI (Tableau[i, j] <> 0) ALORS
+			TANT QUE (Tableau[i, j] <> 0) FAIRE
+				SI (j - 1 = 0) ALORS
+					J <- Tmatrice + 1
+				FINSI
+				SI (i - 1 = 0) ALORS
+					i <- Tmatrice + 1
+				FINSI
+				i <- i - 1
+				j <- j - 1
+			FINTANTQUE
+
+			FINSI
+		FINSI
+		Tableau[i, j] := compteur
+	FINPOUR
+FIN
+
+ // Algorithme Principal
+[
+VAR
+	i, j : ENTIER
+	Magique : Matrice
+	
+DEBUT
+	POUR i de 1 A Tmatrice FAIRE
+		POUR j de 1 A Tmatrice FAIRE
+			SI (Magique[i, j] < 0) ALORS
+				ECRIRE "0" & Magique[i, j] & " "
+			SINON
+				ECRIRE Magique & " "
+			FINSI
+		FINPOUR
+	FINPOURL
+FIN
